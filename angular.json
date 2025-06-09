@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Angular-And-Phaser-Starter-Pack:build:production"
+              "buildTarget": "Angular-And-Phaser-Starter-Pack:build:production"
             },
             "development": {
-              "browserTarget": "Angular-And-Phaser-Starter-Pack:build:development"
+              "buildTarget": "Angular-And-Phaser-Starter-Pack:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular-And-Phaser-Starter-Pack:build"
+            "buildTarget": "Angular-And-Phaser-Starter-Pack:build"
           }
         },
         "test": {
