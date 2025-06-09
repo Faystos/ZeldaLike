@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AUTO, Game, Scene, Types } from 'phaser';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent extends Scene{
   phaserGame!: Phaser.Game;
