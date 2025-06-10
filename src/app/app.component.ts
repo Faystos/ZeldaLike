@@ -1,30 +1,20 @@
-import { Component } from '@angular/core';
-import { AUTO, Game, Scene, Types } from 'phaser';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { Game } from 'phaser';
+
+import { GameConfig } from "./configs";
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent extends Scene{
+export class AppComponent implements OnInit {
   phaserGame!: Phaser.Game;
-  config: Types.Core.GameConfig = {
-    type: AUTO,
-    width: 800,
-    height: 600,
-    scene: [this]
-  };
 
-  constructor() {
-    super('Game');
-    this.phaserGame = new Game(this.config);
+  ngOnInit(): void {
+    new Game(GameConfig);
   }
-
-  preload() {}
-
-  create(){}
-
-  override update() {}
 
 }
