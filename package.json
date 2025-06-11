@@ -1,12 +1,17 @@
 {
-  "name": "angular-and-phaser-starter-pack",
+  "name": "zelda-like",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "prettier": "npx prettier -w \"./src/**/**.(html|scss|ts|json)\" --cache",
+    "eslint": "eslint . --ext .html,.ts",
+    "stylelint": "npx stylelint \"./src/**/**.scss\" --cache --fix",
+    "check:code-quality": "npm run prettier && npm run eslint && npm run stylelint"
   },
   "private": true,
   "dependencies": {
@@ -18,22 +23,38 @@
     "@angular/platform-browser": "^20.0.2",
     "@angular/platform-browser-dynamic": "^20.0.2",
     "@angular/router": "^20.0.2",
+    "eslint-plugin-import": "^2.31.0",
     "phaser": "3.55.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^20.0.0",
     "@angular/build": "^20.0.1",
     "@angular/cli": "~20.0.1",
     "@angular/compiler-cli": "^20.0.2",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/jasmine": "~4.0.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "angular-eslint": "20.0.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "5.8.3"
+    "prettier": "^3.5.3",
+    "prettier-plugin-css-order": "^2.1.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "prettier-plugin-sort-json": "^4.1.1",
+    "stylelint": "^16.20.0",
+    "stylelint-config-standard": "^38.0.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-scss": "^6.12.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.33.1"
   }
 }

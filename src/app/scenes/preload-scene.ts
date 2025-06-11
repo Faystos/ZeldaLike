@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
-import { SCENE_KEYS } from './scene-keys';
+
 import { ASSET_PACK_KEYS } from '../common/assets';
+import { SCENE_KEYS } from './scene-keys';
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {

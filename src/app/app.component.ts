@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Game } from 'phaser';
 
-import { GameConfig } from "./configs";
+import { GameConfig } from './configs';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   phaserGame!: Phaser.Game;
@@ -16,5 +16,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     new Game(GameConfig);
   }
-
 }

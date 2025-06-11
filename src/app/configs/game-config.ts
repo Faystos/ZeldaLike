@@ -1,4 +1,5 @@
-import {Types, WEBGL} from 'phaser';
+import { Types, WEBGL } from 'phaser';
+
 import { SCENES } from '../scenes';
 
 export const GameConfig: Types.Core.GameConfig = {
@@ -21,5 +22,5 @@ export const GameConfig: Types.Core.GameConfig = {
     },
   },
 
-  scene: SCENES
-}
+  scene: SCENES,
+};

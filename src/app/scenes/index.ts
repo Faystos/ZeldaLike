@@ -1,7 +1,4 @@
-import { GameScene } from "./game-scene";
-import { PreloadScene } from "./preload-scene"
+import { GameScene } from './game-scene';
+import { PreloadScene } from './preload-scene';
 
-export const SCENES = [
-  GameScene,
-  PreloadScene
-];
+export const SCENES = [GameScene, PreloadScene];
