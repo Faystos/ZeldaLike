@@ -1,9 +1,11 @@
+import { Injectable } from "@angular/core";
 import { Scene, GameObjects } from 'phaser';
 
 import { SCENE_KEYS } from "../scene-keys";
 import { ASSET_KEYS } from "../../common/assets";
 import { AnimationSetting } from "../../common/types";
 
+@Injectable({ providedIn: 'root' })
 export class StartScene extends Scene {
   constructor() {
     super({
