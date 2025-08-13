@@ -1,8 +1,8 @@
 import { Scene, GameObjects } from 'phaser';
 
-import {SCENE_KEYS} from "../scene-keys";
-import {ASSET_KEYS} from "../../common/assets";
-import {AnimationSetting} from "../../common/types";
+import { SCENE_KEYS } from "../scene-keys";
+import { ASSET_KEYS } from "../../common/assets";
+import { AnimationSetting } from "../../common/types";
 
 export class StartScene extends Scene {
   constructor() {

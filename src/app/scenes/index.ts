@@ -1,4 +1,4 @@
-import {GameScene} from "./game-scene";
+import { GameScene } from "./game-scene";
 import { PreloadScene } from './preload-scene';
 import { StartScene } from "./start-scene";
 
