@@ -1,4 +1,8 @@
+import { Input } from "phaser";
+
 import { CHARACTER_ANIMATIONS } from './assets';
+
+export type KeyboardPlugin = Input.Keyboard.KeyboardPlugin;
 
 export type CharacterAnimation = keyof typeof CHARACTER_ANIMATIONS;
 
