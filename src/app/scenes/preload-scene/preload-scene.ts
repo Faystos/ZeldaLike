@@ -1,8 +1,10 @@
+import { Injectable } from "@angular/core";
 import { Scene } from 'phaser';
 
 import { SCENE_KEYS } from "../scene-keys";
 import { ASSET_KEYS, ASSET_PACK_KEYS } from "../../common/assets";
 
+@Injectable({ providedIn: 'root' })
 export class PreloadScene extends Scene {
   constructor() {
     super({
