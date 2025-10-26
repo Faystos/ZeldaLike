@@ -1,4 +1,4 @@
-import { Input } from "phaser";
+import { Input, GameObjects } from "phaser";
 
 import { CHARACTER_ANIMATIONS } from './assets';
 
@@ -18,3 +18,5 @@ export type Position = {
   x: number;
   y: number;
 };
+
+export type GameObject = GameObjects.Sprite | GameObjects.Image;

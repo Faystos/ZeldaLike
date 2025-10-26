@@ -3,9 +3,10 @@ import { Physics, Scenes } from 'phaser';
 import { PLAYER_ANIMATION_KEYS } from "../../common/assets";
 import { PlayerConfig } from "./types";
 import { InputKey } from "../../inputs";
+import { ControlsComponent } from '../../components';
 
 export class Player extends Physics.Arcade.Sprite {
-  #controls!: InputKey;
+  readonly #controlsComponent!: ControlsComponent;
 
   constructor(config: PlayerConfig) {
     const { scene, position, assetKey, frame, controls } = config;
@@ -14,7 +15,7 @@ export class Player extends Physics.Arcade.Sprite {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.#controls = controls;
+    this.#controlsComponent = new ControlsComponent(this, controls);
     this.#playStartAnimationPlayer();
     this.#playEventListeners(config);
   }
@@ -42,26 +43,26 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   #eventUp(): void {
-    if (this.#controls.isUp) {
+    if (this.#controlsComponent.controls.isUp) {
       this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_UP, repeat: -1 }, true);
     }
   }
 
   #eventDown(): void {
-    if (this.#controls.isDown) {
+    if (this.#controlsComponent.controls.isDown) {
       this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_DOWN, repeat: -1 }, true);
     }
   }
 
   #eventLeft(): void {
-    if (this.#controls.isLeft) {
+    if (this.#controlsComponent.controls.isLeft) {
       this.setFlipX(true);
       this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_SIDE, repeat: -1 }, true);
     }
   }
 
   #eventRight(): void {
-    if (this.#controls.isRight) {
+    if (this.#controlsComponent.controls.isRight) {
       this.setFlipX(false);
       this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_SIDE, repeat: -1 }, true);
     }
