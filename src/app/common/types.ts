@@ -1,6 +1,7 @@
-import { Input } from "phaser";
+import { Input, GameObjects, Physics } from 'phaser';
 
 import { CHARACTER_ANIMATIONS } from './assets';
+import { isArcadePhysicsBody } from './utils';
 
 export type KeyboardPlugin = Input.Keyboard.KeyboardPlugin;
 
@@ -18,3 +19,7 @@ export type Position = {
   x: number;
   y: number;
 };
+
+export type GameObject = GameObjects.Sprite | GameObjects.Image;
+
+export type ArcadePhysicsBody = Physics.Arcade.Body | Physics.Arcade.StaticBody | MatterJS.Body | null;
