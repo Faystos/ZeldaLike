@@ -19,7 +19,7 @@ export class StateMachineComponent {
       this.setState(queueState.state, queueState.args);
       return;
     }
-    
+
     if (this.#currentState && this.#currentState.onUpdate) {
       this.#currentState.onUpdate();
     }
@@ -27,6 +27,7 @@ export class StateMachineComponent {
 
   setState(name: string, ...args: unknown[]): void {
     const methodName = 'setState';
+
     if (!this.#states.has(name)) {
       console.warn(`[${StateMachineComponent.name}-${this.#id}:${methodName}] tried to change to unknown state ${name}`);
       return;
@@ -42,10 +43,11 @@ export class StateMachineComponent {
     }
 
     this.#isChangingState = true;
-    this.#logInput(methodName, `change from ${ this.#currentState?.name } to ${ name }`);
+    this.#logInput(methodName, `change from ${ this.#currentState?.name ?? 'none' } to ${ name }`);
     this.#currentState = this.#states.get(name);
 
     if (this.#currentState?.onEnter) {
+      this.#logInput(methodName, `${this.#currentState.name} on enter invoked`);
       this.#currentState?.onEnter(args);
     }
 
@@ -58,14 +60,15 @@ export class StateMachineComponent {
   }
 
   #getInitialId(id: string | undefined): string {
-    if(!id) {
+    if (!id) {
       return Math.RND.uuid()
     }
+
     return id;
   }
 
   #isCurrentState(name: string): boolean {
-    if(!this.#currentState) {
+    if (!this.#currentState) {
       return false;
     }
     return this.#currentState.name === name;
