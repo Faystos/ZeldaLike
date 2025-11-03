@@ -1,13 +1,14 @@
 import { Physics, Scenes } from 'phaser';
 
-import { PLAYER_ANIMATION_KEYS } from "../../common/assets";
 import { PlayerConfig } from "./types";
-import { InputKey } from "../../inputs";
-import { ControlsComponent } from '../../components';
-import { isArcadePhysicsBody } from '../../common/utils';
+import { ControlsComponent, StateMachineComponent } from '../../components';
+import { IdleState, MoveState } from '../../components/state-machine-component/states';
+import { CHARACTER_TYPE } from '../../components/state-machine-component/types/character.type';
+import { InputKey } from '../../inputs';
 
 export class Player extends Physics.Arcade.Sprite {
   readonly #controlsComponent!: ControlsComponent;
+  #stateMachine!: StateMachineComponent;
 
   constructor(config: PlayerConfig) {
     const { scene, position, assetKey, frame, controls } = config;
@@ -17,16 +18,17 @@ export class Player extends Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.#controlsComponent = new ControlsComponent(this, controls);
-    this.#playStartAnimationPlayer();
+
+    this.#initPlayerStateMachine();
     this.#playEventListeners(config);
   }
 
   override update(): void {
-    this.#eventUpdate();
+    this.#stateMachine.update();
   }
 
-  #playStartAnimationPlayer(): void {
-    this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_DOWN, repeat: -1 });
+  get controls(): InputKey {
+    return this.#controlsComponent.controls;
   }
 
   #playEventListeners(config: PlayerConfig): void {
@@ -36,82 +38,10 @@ export class Player extends Physics.Arcade.Sprite {
     });
   }
 
-  #eventUpdate(): void {
-    this.#eventUp();
-    this.#eventDown();
-    this.#eventLeft();
-    this.#eventRight();
-    this.#stopVelocity();
-    this.#normalizeVelocity();
-  }
-
-  #eventUp(): void {
-    if (this.#controlsComponent.controls.isUp) {
-      this.play({ key: PLAYER_ANIMATION_KEYS.WALK_UP, repeat: -1 }, true);
-      this.#updateVelocity(false, -1);
-    }
-  }
-
-  #eventDown(): void {
-    if (this.#controlsComponent.controls.isDown) {
-      this.play({ key: PLAYER_ANIMATION_KEYS.WALK_DOWN, repeat: -1 }, true);
-      this.#updateVelocity(false, 1);
-    }
-  }
-
-  #eventLeft(): void {
-    if (this.#controlsComponent.controls.isLeft) {
-      this.setFlipX(true);
-      this.#updateVelocity(true, -1);
-
-      if (!(this.#controlsComponent.controls.isUp || this.#controlsComponent.controls.isDown)) {
-        this.play({ key: PLAYER_ANIMATION_KEYS.WALK_SIDE, repeat: -1 }, true);
-      }
-    }
-  }
-
-  #eventRight(): void {
-    if (this.#controlsComponent.controls.isRight) {
-      this.setFlipX(false);
-      this.#updateVelocity(true, 1);
-
-      if (!(this.#controlsComponent.controls.isUp || this.#controlsComponent.controls.isDown)) {
-        this.play({ key: PLAYER_ANIMATION_KEYS.WALK_SIDE, repeat: -1 }, true);
-      }
-    }
-  }
-
-  #updateVelocity(isX: boolean, velocityValue: number): void {
-    if (!isArcadePhysicsBody(this.body)) {
-      return;
-    }
-
-    if (isX) {
-      this.body.velocity.x = velocityValue;
-      return;
-    }
-
-    this.body.velocity.y = velocityValue;
-  }
-
-  #stopVelocity() {
-    if (
-      !this.#controlsComponent.controls.isUp
-      && !this.#controlsComponent.controls.isDown
-      && !this.#controlsComponent.controls.isLeft
-      && !this.#controlsComponent.controls.isRight
-    ) {
-      this.#updateVelocity(true, 0);
-      this.#updateVelocity(false, 0);
-      this.play({ key: PLAYER_ANIMATION_KEYS.IDLE_DOWN, repeat: -1 }, true);
-    }
-  }
-
-  #normalizeVelocity(): void {
-    if (!isArcadePhysicsBody(this.body)) {
-      return;
-    }
-
-    this.body.velocity.normalize().scale(20)
+  #initPlayerStateMachine(): void {
+    this.#stateMachine = new StateMachineComponent('player');
+    this.#stateMachine.addState(new IdleState(this));
+    this.#stateMachine.addState(new MoveState(this));
+    this.#stateMachine.setState(CHARACTER_TYPE.IDLE_STATE)
   }
 }
