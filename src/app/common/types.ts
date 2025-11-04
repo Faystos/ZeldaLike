@@ -23,3 +23,11 @@ export type Position = {
 export type GameObject = GameObjects.Sprite | GameObjects.Image;
 
 export type ArcadePhysicsBody = Physics.Arcade.Body | Physics.Arcade.StaticBody | MatterJS.Body | null;
+
+export const Direction = {
+  UP: 'UP',
+  DOWN: 'DOWN',
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT',
+} as const;
+export type Direction = (typeof Direction)[keyof typeof Direction];

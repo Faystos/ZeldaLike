@@ -10,6 +10,7 @@ export class IdleState extends BaseCharacterState {
   }
 
   onEnter() {
+    console.log('onEnter: ',this._gameObject.direction);
     this.#playIdleStateAnimation();
     this.#stopVelocity();
   }
