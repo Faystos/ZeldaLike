@@ -12,7 +12,6 @@ export class IdleState extends BaseCharacterState {
   onEnter() {
     this.#playIdleStateAnimation();
     this.#stopVelocity();
-    console.log('IdleState: onEnter');
   }
 
   onUpdate() {
@@ -25,18 +24,15 @@ export class IdleState extends BaseCharacterState {
 
   #stopVelocity(): void {
     if (isArcadePhysicsBody(this._gameObject.body)) {
-      this._gameObject.body.velocity.x = 0;
-      this._gameObject.body.velocity.x = 0;
+      this._gameObject.body.setVelocity(0, 0);
     }
   }
 
   #startVelocity(): void {
     const controls = this._gameObject.controls;
 
-    if (!controls.isUp && controls.isDown && !controls.isLeft && !controls.isRight) {
-      return;
+    if (controls.isUp || controls.isDown || controls.isLeft || controls.isRight) {
+      this._stateMachine.setState(CHARACTER_TYPE.MOVE_STATE);
     }
-
-    this._stateMachine.setState(CHARACTER_TYPE.MOVE_STATE);
   }
 }

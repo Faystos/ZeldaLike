@@ -19,5 +19,4 @@ export abstract class BaseCharacterState extends StateMachineComponent {
   set stateMachine(stateMachine: StateMachineComponent) {
     this._stateMachine = stateMachine
   }
-
 }
