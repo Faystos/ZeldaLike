@@ -3,6 +3,7 @@ import { Player } from '../../../../game-object';
 import { CHARACTER_TYPE } from '../../types/character.type';
 import { PLAYER_ANIMATION_KEYS } from '../../../../common/assets';
 import { isArcadePhysicsBody } from '../../../../common/utils';
+import { InputKey } from '../../../../inputs';
 
 export class MoveState extends BaseCharacterState {
   constructor(gameObject: Player) {
@@ -10,61 +11,52 @@ export class MoveState extends BaseCharacterState {
   }
 
   onUpdate() {
-    this.#eventUpdate();
+    this.#handlerMovement();
   }
 
-  #eventUpdate(): void {
-    this.#eventUp();
-    this.#eventDown();
-    this.#eventLeft();
-    this.#eventRight();
-    this.#stopVelocity();
+  #handlerMovement(): void {
+    const controls = this._gameObject.controls;
+
+    if (!controls.isUp && !controls.isDown && !controls.isLeft && !controls.isRight) {
+      this._stateMachine.setState(CHARACTER_TYPE.IDLE_STATE);
+      return;
+    }
+
+    this.#handlerVerticalMovement(controls);
+    this.#handlerHorizontalMovement(controls);
     this.#normalizeVelocity();
   }
 
-  #eventUp(): void {
-    if (this._gameObject.controls.isUp) {
+
+  #handlerVerticalMovement(controls: InputKey): void {
+    if (controls.isUp) {
       this._gameObject.play({ key: PLAYER_ANIMATION_KEYS.WALK_UP, repeat: -1 }, true);
       this.#updateVelocity(false, -1);
-    }
-  }
-
-  #eventDown(): void {
-    if (this._gameObject.controls.isDown) {
+    } else if (controls.isDown) {
       this._gameObject.play({ key: PLAYER_ANIMATION_KEYS.WALK_DOWN, repeat: -1 }, true);
       this.#updateVelocity(false, 1);
+    } else {
+      this.#updateVelocity(false, 0);
     }
   }
 
-  #eventLeft(): void {
-    if (this._gameObject.controls.isLeft) {
+  #handlerHorizontalMovement(controls: InputKey): void {
+    const isMovingVertically = controls.isDown || controls.isUp;
+
+    if (controls.isLeft) {
       this._gameObject.setFlipX(true);
       this.#updateVelocity(true, -1);
-
-      if (!(this._gameObject.controls.isUp || this._gameObject.controls.isDown)) {
+      if (!isMovingVertically) {
         this._gameObject.play({ key: PLAYER_ANIMATION_KEYS.WALK_SIDE, repeat: -1 }, true);
       }
-    }
-  }
-
-  #eventRight(): void {
-    if (this._gameObject.controls.isRight) {
+    } else if (controls.isRight) {
       this._gameObject.setFlipX(false);
       this.#updateVelocity(true, 1);
-
-      if (!(this._gameObject.controls.isUp || this._gameObject.controls.isDown)) {
+      if (!isMovingVertically) {
         this._gameObject.play({ key: PLAYER_ANIMATION_KEYS.WALK_SIDE, repeat: -1 }, true);
       }
-    }
-  }
-
-  #stopVelocity(): void {
-    const controls = this._gameObject.controls;
-    if (!controls.isUp && !controls.isDown && !controls.isLeft && !controls.isRight) {
-      this._stateMachine.setState(CHARACTER_TYPE.IDLE_STATE);
+    } else {
       this.#updateVelocity(true, 0);
-      this.#updateVelocity(false, 0);
-      return;
     }
   }
 
