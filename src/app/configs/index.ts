@@ -1,3 +1,4 @@
 import { GameConfig } from './game-config';
+import { PLAYER_CONFIG } from './player-config';
 
-export { GameConfig };
+export { GameConfig, PLAYER_CONFIG };

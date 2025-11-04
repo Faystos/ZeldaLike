@@ -1,14 +1,16 @@
 import { Physics, Scenes } from 'phaser';
 
 import { PlayerConfig } from "./types";
-import { ControlsComponent, StateMachineComponent } from '../../components';
+import { ControlsComponent, SpeedComponent, StateMachineComponent } from '../../components';
 import { IdleState, MoveState } from '../../components/state-machine-component/states';
 import { CHARACTER_TYPE } from '../../components/state-machine-component/types/character.type';
 import { InputKey } from '../../inputs';
+import { PLAYER_CONFIG } from '../../configs';
 
 export class Player extends Physics.Arcade.Sprite {
   readonly #controlsComponent!: ControlsComponent;
-  #stateMachine!: StateMachineComponent;
+  readonly #speedComponent!: SpeedComponent;
+  readonly #stateMachine!: StateMachineComponent;
 
   constructor(config: PlayerConfig) {
     const { scene, position, assetKey, frame, controls } = config;
@@ -17,7 +19,10 @@ export class Player extends Physics.Arcade.Sprite {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
+
     this.#controlsComponent = new ControlsComponent(this, controls);
+    this.#speedComponent = new SpeedComponent(this, PLAYER_CONFIG.SPEED);
+    this.#stateMachine = new StateMachineComponent('player');
 
     this.#initPlayerStateMachine();
     this.#playEventListeners(config);
@@ -31,6 +36,10 @@ export class Player extends Physics.Arcade.Sprite {
     return this.#controlsComponent.controls;
   }
 
+  get speed(): number {
+    return this.#speedComponent.speed;
+  }
+
   #playEventListeners(config: PlayerConfig): void {
     config.scene.events.on(Scenes.Events.UPDATE, () => this.update());
     config.scene.events.once(Scenes.Events.SHUTDOWN, () => {
@@ -39,7 +48,6 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   #initPlayerStateMachine(): void {
-    this.#stateMachine = new StateMachineComponent('player');
     this.#stateMachine.addState(new IdleState(this));
     this.#stateMachine.addState(new MoveState(this));
     this.#stateMachine.setState(CHARACTER_TYPE.IDLE_STATE)

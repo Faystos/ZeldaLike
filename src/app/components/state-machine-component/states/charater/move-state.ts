@@ -78,6 +78,6 @@ export class MoveState extends BaseCharacterState {
       return;
     }
 
-    this._gameObject.body.velocity.normalize().scale(20)
+    this._gameObject.body.velocity.normalize().scale(this._gameObject.speed);
   }
 }
