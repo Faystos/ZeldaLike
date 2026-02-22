@@ -19,7 +19,7 @@ export class IdleState extends BaseCharacterState {
   }
 
   #playIdleStateAnimation(): void {
-    this._gameObject.play({ key: PLAYER_ANIMATION_KEYS.IDLE_DOWN, repeat: -1 });
+    this._gameObject.animation.playAnimation(`IDLE_${this._gameObject.direction}`);
   }
 
   #stopVelocity(): void {

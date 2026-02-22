@@ -1,4 +1,4 @@
-import { ArcadePhysicsBody } from './types';
+import { ArcadePhysicsBody, Direction } from './types';
 import { Physics } from 'phaser';
 
 export function exhaustiveGuard(_value: never): never {
@@ -11,4 +11,8 @@ export function isArcadePhysicsBody(body: ArcadePhysicsBody ): body is Physics.A
   }
 
   return body instanceof Physics.Arcade.Body;
+}
+
+export function isDirection(direction: Direction): direction is Direction {
+  return Direction[direction] !== undefined;
 }
