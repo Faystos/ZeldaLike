@@ -1,11 +1,10 @@
-import { BaseCharacterState } from './base-character-state';
-import { Player } from '../../../../game-object';
-import { CHARACTER_TYPE } from '../../types/character.type';
-import { PLAYER_ANIMATION_KEYS } from '../../../../common/assets';
 import { isArcadePhysicsBody } from '../../../../common/utils';
+import { BaseCharacter } from '../../../../game-object';
+import { CHARACTER_TYPE } from '../../types/character.type';
+import { BaseCharacterState } from './base-character-state';
 
 export class IdleState extends BaseCharacterState {
-  constructor(gameObject: Player) {
+  constructor(gameObject: BaseCharacter) {
     super(CHARACTER_TYPE.IDLE_STATE, gameObject);
   }
 

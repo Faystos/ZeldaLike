@@ -1,13 +1,12 @@
-import { BaseCharacterState } from './base-character-state';
-import { Player } from '../../../../game-object';
-import { CHARACTER_TYPE } from '../../types/character.type';
-import { PLAYER_ANIMATION_KEYS } from '../../../../common/assets';
-import { isArcadePhysicsBody } from '../../../../common/utils';
-import { InputKey } from '../../../../inputs';
 import { Direction } from '../../../../common/types';
+import { isArcadePhysicsBody } from '../../../../common/utils';
+import { BaseCharacter } from '../../../../game-object';
+import { InputKey } from '../../../../inputs';
+import { CHARACTER_TYPE } from '../../types/character.type';
+import { BaseCharacterState } from './base-character-state';
 
 export class MoveState extends BaseCharacterState {
-  constructor(gameObject: Player) {
+  constructor(gameObject: BaseCharacter) {
     super(CHARACTER_TYPE.MOVE_STATE, gameObject);
   }
 
@@ -27,7 +26,6 @@ export class MoveState extends BaseCharacterState {
     this.#handlerHorizontalMovement(controls);
     this.#normalizeVelocity();
   }
-
 
   #handlerVerticalMovement(controls: InputKey): void {
     if (controls.isUp) {

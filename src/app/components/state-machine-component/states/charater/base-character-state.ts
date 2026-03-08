@@ -1,12 +1,12 @@
+import { BaseCharacter } from '../../../../game-object';
 import { StateMachineComponent } from '../../state-machine-component';
-import { Player } from '../../../../game-object';
 
 export abstract class BaseCharacterState extends StateMachineComponent {
-  protected _gameObject: Player;
+  protected _gameObject: BaseCharacter;
   protected _stateMachine!: StateMachineComponent;
   #name: string;
 
-  protected constructor(name: string, gameObject: Player) {
+  protected constructor(name: string, gameObject: BaseCharacter) {
     super();
     this.#name = name;
     this._gameObject = gameObject;
@@ -17,6 +17,6 @@ export abstract class BaseCharacterState extends StateMachineComponent {
   }
 
   set stateMachine(stateMachine: StateMachineComponent) {
-    this._stateMachine = stateMachine
+    this._stateMachine = stateMachine;
   }
 }
