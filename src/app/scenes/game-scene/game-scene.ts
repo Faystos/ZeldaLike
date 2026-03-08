@@ -1,10 +1,9 @@
-import { inject, Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Scene } from 'phaser';
 
+import { Player, Spider } from '../../game-object';
+import { KeyboardInput } from '../../inputs';
 import { SCENE_KEYS } from "../scene-keys";
-import { ASSET_KEYS } from "../../common/assets";
-import { Player } from "../../game-object";
-import { KeyboardInput } from "../../inputs";
 
 @Injectable({ providedIn: 'root' })
 export class GameScene extends Scene {
@@ -21,15 +20,23 @@ export class GameScene extends Scene {
   public create(): void {
     this.#initControlsKeyboardPlugin();
     this.#createPlayer();
+    this.#createEnemies();
   }
 
   #createPlayer(): void {
     this.#player = new Player({
       scene: this,
       position: {  x: this.scale.width / 2, y: this.scale.height / 2 },
-      assetKey: ASSET_KEYS.PLAYER,
       controls: this.#controlsKeyboard
     });
+  }
+
+  #createEnemies(): void {
+    new Spider({
+      scene: this,
+      position: {  x: this.scale.width / 2, y: this.scale.height / 2 + 50 },
+      controls: this.#controlsKeyboard
+    })
   }
 
   #initControlsKeyboardPlugin(): void {

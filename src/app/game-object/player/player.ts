@@ -1,6 +1,6 @@
 import { Scenes } from 'phaser';
 
-import { PLAYER_ANIMATION_KEYS } from '../../common/assets';
+import { ASSET_KEYS, PLAYER_ANIMATION_KEYS } from '../../common/assets';
 import { AnimationConfig } from '../../components';
 import { IdleState, MoveState } from '../../components/state-machine-component/states';
 import { CHARACTER_TYPE } from '../../components/state-machine-component/types/character.type';
@@ -20,7 +20,14 @@ export class Player extends BaseCharacter {
       IDLE_LEFT: { key: PLAYER_ANIMATION_KEYS.IDLE_SIDE, repeat: -1, ignoreIfPlaying: true },
       IDLE_RIGHT: { key: PLAYER_ANIMATION_KEYS.IDLE_SIDE, repeat: -1, ignoreIfPlaying: true },
     };
-    super({...config, id: 'player', isPlayer: true, animationConfig, speed: PLAYER_CONFIG.SPEED });
+    super({
+      ...config,
+      id: 'player',
+      isPlayer: true,
+      animationConfig,
+      speed: PLAYER_CONFIG.SPEED,
+      assetKey: ASSET_KEYS.PLAYER
+    });
 
     this.#initPlayerStateMachine();
     this.#playEventListeners(config);

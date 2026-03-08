@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Scene } from 'phaser';
 
-import { SCENE_KEYS } from "../scene-keys";
 import { ASSET_KEYS, ASSET_PACK_KEYS } from "../../common/assets";
+import { SCENE_KEYS } from "../scene-keys";
 
 @Injectable({ providedIn: 'root' })
 export class PreloadScene extends Scene {
@@ -22,6 +22,7 @@ export class PreloadScene extends Scene {
   }
 
   #createAnimation(): void {
-    this.anims.createFromAseprite(ASSET_KEYS.PLAYER)
+    this.anims.createFromAseprite(ASSET_KEYS.PLAYER);
+    this.anims.createFromAseprite(ASSET_KEYS.SPIDER);
   }
 }

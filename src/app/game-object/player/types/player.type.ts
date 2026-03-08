@@ -5,7 +5,5 @@ import { InputKey } from "../../../inputs";
 export type PlayerConfig = {
   scene: Scene;
   position: Position;
-  assetKey: string;
-  frame?: number;
   controls: InputKey
 };
