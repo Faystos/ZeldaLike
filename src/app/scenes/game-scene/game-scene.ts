@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Scene } from 'phaser';
 
 import { Player, Spider } from '../../game-object';
+import { Wisp } from '../../game-object/enemys';
 import { InputKey, KeyboardInput } from '../../inputs';
 import { SCENE_KEYS } from "../scene-keys";
 
@@ -40,6 +41,12 @@ export class GameScene extends Scene {
     });
 
     this.#spider.setCollideWorldBounds(true);
+
+    new Wisp({
+      scene: this,
+      position: { x: this.scale.width / 2, y: this.scale.height / 2 + 50 },
+      controls: new InputKey(),
+    });
   }
 
   #initControlsKeyboardPlugin(): void {

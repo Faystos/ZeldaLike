@@ -34,11 +34,11 @@ export class Spider extends BaseCharacter {
       this.#handleDirectionChange(direction);
     };
 
-    this.#initPlayerStateMachine();
+    this.#initStateMachine();
     this.#getSceneTimeEvent();
   }
 
-  #initPlayerStateMachine(): void {
+  #initStateMachine(): void {
     this._stateMachine.addState(new IdleState(this));
     this._stateMachine.addState(new MoveState(this));
     this._stateMachine.setState(CHARACTER_TYPE.IDLE_STATE);

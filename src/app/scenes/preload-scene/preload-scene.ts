@@ -24,5 +24,6 @@ export class PreloadScene extends Scene {
   #createAnimation(): void {
     this.anims.createFromAseprite(ASSET_KEYS.PLAYER);
     this.anims.createFromAseprite(ASSET_KEYS.SPIDER);
+    this.anims.createFromAseprite(ASSET_KEYS.WISP);
   }
 }
