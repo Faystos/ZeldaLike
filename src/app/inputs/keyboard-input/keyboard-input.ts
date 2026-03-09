@@ -1,10 +1,8 @@
-import { Injectable } from "@angular/core";
 import { Input, Types } from 'phaser';
 
 import { InputKey } from "../input-key";
 import { KeyboardPlugin } from "../../common/types";
 
-@Injectable({ providedIn: 'root' })
 export class KeyboardInput extends InputKey {
   #keyboardPlugin!: KeyboardPlugin
   #cursorKeys!: Types.Input.Keyboard.CursorKeys;

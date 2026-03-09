@@ -3,7 +3,7 @@ import { Direction, GameObject } from '../../common/types';
 
 export class DirectionComponent extends BaseComponent {
   #direction: Direction = Direction.DOWN;
-  readonly #callback: (direction: Direction) => void;
+  #callback: (direction: Direction) => void;
 
   constructor(gameObject: GameObject, onDirectionCallback = () => undefined) {
     super(gameObject);
@@ -17,5 +17,9 @@ export class DirectionComponent extends BaseComponent {
   set direction(directionValue: Direction) {
     this.#direction = directionValue;
     this.#callback(this.#direction);
+  }
+
+  set directionCallback(callback: (direction: Direction) => void) {
+    this.#callback = callback;
   }
 }
